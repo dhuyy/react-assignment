@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { HEADER_LOGO } from '../constants/Images';
-import { getSessionId, deleteSessionId } from '../actions/AuthActions'
+import { getSessionId, deleteSessionId } from '../actions/AuthActions';
 
 import '../styles/navbar.scss';
 

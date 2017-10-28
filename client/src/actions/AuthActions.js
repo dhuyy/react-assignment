@@ -8,7 +8,7 @@ import {
 	DELETE_SESSION_ID
 } from '../constants/ActionTypes';
 
-const ROOT_URL = 'http://localhost:5000';
+import { ROOT_URL } from '../constants/ServerAddress';
 
 export function userAuth(username, password) {
 	const request = axios.post(`${ROOT_URL}/user/auth`, {
