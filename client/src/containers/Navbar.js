@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import { HEADER_LOGO } from '../constants/Images';
+import { getSessionId, deleteSessionId } from '../actions/AuthActions'
+
+import '../styles/navbar.scss';
 
 class Navbar extends Component {
   componentWillMount() {
-    //localStorage.setItem('sessionId', '93284792834');
-
-    this.state = {
-      sessionId: localStorage.getItem('sessionId')
-    }
+    this.props.getSessionId()
   }
 
   logout(event) {
@@ -16,7 +16,8 @@ class Navbar extends Component {
 
     localStorage.removeItem('sessionId');
 
-    this.setState({ sessionId: null })
+    this.props.deleteSessionId();
+    this.context.router.push('/');
   }
 
   render() {
@@ -32,18 +33,18 @@ class Navbar extends Component {
               	<span className="icon-bar"></span>
               	<span className="icon-bar"></span>
       				</button>
-      				<Link to="/videoList" className="navbar-brand">
+      				<Link to="/videos" className="navbar-brand">
       					<img src={ HEADER_LOGO } alt="Crossover"/>
       				</Link>
       			</div>
       			<div className="collapse navbar-collapse" id="navbar-collapse">
       				<ul className="nav navbar-nav navbar-right">
-      					<li className={ this.state.sessionId ? 'hide' : '' }>
+      					<li className={ this.props.sessionId ? 'hide' : '' }>
       						<Link to="/">
 		      					<i className="fa fa-sign-in" aria-hidden="true"></i> Login
 		      				</Link>
       					</li>
-      					<li className={ this.state.sessionId ? '' : 'hide' }>
+      					<li className={ this.props.sessionId ? '' : 'hide' }>
       						<a href="" onClick={this.logout.bind(this)}>
       							<i className="fa fa-sign-out" aria-hidden="true"></i> Logout
       						</a>
@@ -57,4 +58,12 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+Navbar.contextTypes = {
+  router: PropTypes.object
+};
+
+function mapStateToProps(state) {
+  return { sessionId: state.sessionId };
+}
+
+export default connect(mapStateToProps, { getSessionId, deleteSessionId })(Navbar);
