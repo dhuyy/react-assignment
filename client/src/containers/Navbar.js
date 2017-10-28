@@ -8,16 +8,26 @@ import '../styles/navbar.scss';
 
 class Navbar extends Component {
   componentWillMount() {
-    this.props.getSessionId()
+    this.props.getSessionId();
+
+    this.onClickLogout = this.onClickLogout.bind(this);
+    this.onClickNavbarLogo = this.onClickNavbarLogo.bind(this)
   }
 
-  logout(event) {
+  onClickLogout(event) {
     event.preventDefault();
 
     localStorage.removeItem('sessionId');
 
     this.props.deleteSessionId();
     this.context.router.push('/');
+  }
+
+  onClickNavbarLogo(event) {
+    event.preventDefault();
+
+    if (this.props.sessionId)
+      this.context.router.push('/videos')
   }
 
   render() {
@@ -33,9 +43,9 @@ class Navbar extends Component {
               	<span className="icon-bar"></span>
               	<span className="icon-bar"></span>
       				</button>
-      				<Link to="/videos" className="navbar-brand">
-      					<img src={ HEADER_LOGO } alt="Crossover"/>
-      				</Link>
+              <a href="" className="navbar-brand" onClick={this.onClickNavbarLogo}>
+                <img src={ HEADER_LOGO } alt="Crossover"/>
+              </a>
       			</div>
       			<div className="collapse navbar-collapse" id="navbar-collapse">
       				<ul className="nav navbar-nav navbar-right">
@@ -45,7 +55,7 @@ class Navbar extends Component {
 		      				</Link>
       					</li>
       					<li className={ this.props.sessionId ? '' : 'hide' }>
-      						<a href="" onClick={this.logout.bind(this)}>
+      						<a href="" onClick={this.onClickLogout}>
       							<i className="fa fa-sign-out" aria-hidden="true"></i> Logout
       						</a>
       					</li>

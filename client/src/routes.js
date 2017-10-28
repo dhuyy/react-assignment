@@ -9,7 +9,7 @@ import VideoListItem from './containers/VideoListItem';
 export default (
   <Route path="/" component={App}>
   	<IndexRoute component={Login} />
-  	<Route path="videos" component={VideoList} />
-  	<Route path="video/:id" component={VideoListItem} />
+  	<Route path="/videos" component={VideoList} />
+  	<Route path="/video/:id" component={VideoListItem} />
   </Route>
 );
