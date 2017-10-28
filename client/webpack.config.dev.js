@@ -34,7 +34,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'index.html',
       filename: 'index.html',
-      title: 'Simple Redux Boilerplate',
       inject: 'body'
     }),
     /**

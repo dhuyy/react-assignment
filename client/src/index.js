@@ -8,6 +8,7 @@ import App from './components/App';
 import routes from './routes';
 
 import './styles/main.scss';
+import './styles/navbar.scss';
 
 const store = configureStore();
 
