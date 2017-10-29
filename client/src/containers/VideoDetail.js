@@ -20,6 +20,19 @@ class VideoDetail extends Component {
 		this.props.cleanVideos();
 	}
 
+	componentDidUpdate() {
+		const list = document.getElementsByTagName('video');
+
+		for (var item of list) {
+			item.onplay = function(event) {
+				for (var video of list) {
+	        if (video.id != event.target.id)
+        		video.pause();
+				}
+			}
+		}
+	}
+
 	renderSideList() {
 		let sideList = this.props.videos.filter(element => {
 			return element._id != this.props.video._id;

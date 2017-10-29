@@ -16,6 +16,19 @@ class VideoList extends Component {
 		this.props.fetchVideos(localStorage.getItem('sessionId'), this.props.videos.length, NUMBER_VIDEOS_TO_LOAD);
 	}
 
+	componentDidUpdate() {
+		const list = document.getElementsByTagName('video');
+
+		for (var item of list) {
+			item.onplay = function(event) {
+				for (var video of list) {
+	        if (video.id != event.target.id)
+        		video.pause();
+				}
+			}
+		}
+	}
+
 	componentWillUnmount() {
 		this.props.cleanVideos();
 	}
