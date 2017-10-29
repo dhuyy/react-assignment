@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StarRating from 'react-star-rating';
+import { toastr } from 'react-redux-toastr';
 
 import { DEFAULT_THUMB } from '../constants/Images';
 import { rateVideo } from '../actions/VideoActions';
@@ -16,7 +17,7 @@ class VideoPlayer extends Component {
 
   	this.props.rateVideo(localStorage.getItem('sessionId'), data)
   		.then(response => {
-				// TODO Implement then callback
+				toastr.success('Video rated.', `You gave it ${rateObj.rating} stars.`);
   		})
 		;
   }
