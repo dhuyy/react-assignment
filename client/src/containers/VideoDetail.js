@@ -7,6 +7,7 @@ import VideoPlayer from '../components/VideoPlayer';
 import VideoListItem from '../components/VideoListItem';
 
 import '../styles/videoDetail.scss';
+import '../styles/toastrRedux.scss';
 
 const NUMBER_VIDEOS_TO_LOAD = 5;
 
