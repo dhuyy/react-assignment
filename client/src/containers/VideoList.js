@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchVideos } from '../actions/VideoActions';
+import { fetchVideos, cleanVideos } from '../actions/VideoActions';
 import { SPINNER } from '../constants/Images';
 import { ROOT_URL } from '../constants/ServerAddress';
 import VideoListItem from '../components/VideoListItem';
 
 import '../styles/videoList.scss';
 
+const NUMBER_VIDEOS_TO_LOAD = 10;
+
 class VideoList extends Component {
 	componentWillMount() {
-		this.props.fetchVideos(localStorage.getItem('sessionId'), 0, 10);
+		this.props.fetchVideos(localStorage.getItem('sessionId'), this.props.videos.length, NUMBER_VIDEOS_TO_LOAD);
+	}
+
+	componentWillUnmount() {
+		this.props.cleanVideos();
 	}
 
 	renderVideos() {
@@ -53,4 +59,4 @@ function mapStateToProps(state) {
 	return { videos: state.videos.all }
 }
 
-export default connect(mapStateToProps, { fetchVideos })(VideoList);
+export default connect(mapStateToProps, { fetchVideos, cleanVideos })(VideoList);

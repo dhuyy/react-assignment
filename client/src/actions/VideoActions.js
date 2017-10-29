@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_VIDEOS, FETCH_VIDEO, RATE_VIDEO } from '../constants/ActionTypes';
+import { FETCH_VIDEOS, FETCH_VIDEO, RATE_VIDEO, CLEAN_VIDEOS } from '../constants/ActionTypes';
 
 const ROOT_URL = 'http://localhost:5000';
 
@@ -28,5 +28,12 @@ export function rateVideo(sessionId, data) {
 	return {
 		type: RATE_VIDEO,
 		payload: request
+	};
+}
+
+export function cleanVideos() {
+	return {
+		type: CLEAN_VIDEOS,
+		payload: []
 	};
 }
