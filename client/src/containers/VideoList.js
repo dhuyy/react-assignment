@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchVideos, cleanVideos } from '../actions/VideoActions';
-import { SPINNER } from '../constants/Images';
 import { ROOT_URL } from '../constants/ServerAddress';
 import VideoListItem from '../components/VideoListItem';
+import ScrollMonitor from '../components/ScrollMonitor';
 
 import '../styles/videoList.scss';
 
 const NUMBER_VIDEOS_TO_LOAD = 10;
+let canFetchNewVideos = true;
 
 class VideoList extends Component {
 	componentWillMount() {
@@ -35,6 +36,20 @@ class VideoList extends Component {
 		});
 	}
 
+	hitTheEnd() {
+		if (this.props.videos.length < 101) {
+			if (canFetchNewVideos) {
+      	this.props.fetchVideos(localStorage.getItem('sessionId'), this.props.videos.length, NUMBER_VIDEOS_TO_LOAD)
+      		.then(response => {
+      			canFetchNewVideos = true;
+      		})
+    		;
+
+      	canFetchNewVideos = false;
+			}
+    }
+	}
+
   render() {
     const { videos } = this.props;
 
@@ -47,9 +62,7 @@ class VideoList extends Component {
       	<div className="video-list">
       		{this.renderVideos()}
       	</div>
-      	<div id="video-list-end">
-      		<img src={ SPINNER } alt="Videos Loading Spinner" className="spinner hide"/>
-      	</div>
+      	<ScrollMonitor stateChange={this.hitTheEnd.bind(this)} videosLength={this.props.videos.length} />
       </div>
     );
   }
