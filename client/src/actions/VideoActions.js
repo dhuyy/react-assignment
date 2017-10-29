@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_VIDEOS } from '../constants/ActionTypes';
+import { FETCH_VIDEOS, FETCH_VIDEO, RATE_VIDEO } from '../constants/ActionTypes';
 
 const ROOT_URL = 'http://localhost:5000';
 
@@ -9,6 +9,24 @@ export function fetchVideos(sessionId, skip, limit) {
 
 	return {
 		type: FETCH_VIDEOS,
+		payload: request
+	};
+}
+
+export function fetchVideo(sessionId, videoId) {
+	const request = axios.get(`${ROOT_URL}/video?sessionId=${sessionId}&videoId=${videoId}`);
+
+	return {
+		type: FETCH_VIDEO,
+		payload: request
+	};
+}
+
+export function rateVideo(sessionId, data) {
+	const request = axios.post(`${ROOT_URL}/video/ratings?sessionId=${sessionId}`, data);
+
+	return {
+		type: RATE_VIDEO,
 		payload: request
 	};
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { fetchVideos } from '../actions/VideoActions';
 import { SPINNER } from '../constants/Images';
 import { ROOT_URL } from '../constants/ServerAddress';
